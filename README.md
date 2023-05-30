@@ -1,4 +1,4 @@
-- 👋 Hi, I’m @Cedric46
+- 👋 Hi, I’m @Cedrick
 - 👀 I’m interested in gaming,computers and networks
 - 🌱 I’m currently learning html,javascript and database
 - 💞️ I’m looking to collaborate on ...
