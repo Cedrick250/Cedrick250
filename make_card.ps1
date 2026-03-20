@@ -1,8 +1,10 @@
-
 Add-Type -AssemblyName System.Drawing
 
-$srcPath  = "c:\Users\MUNEZERO\Downloads\readme git\69733609ad67d4001f48292a.png"
-$outPath  = "c:\Users\MUNEZERO\Downloads\readme git\profile_card.png"
+$scriptPath = $PSScriptRoot
+if (-not $scriptPath) { $scriptPath = "." }
+$srcPath    = Join-Path $scriptPath "69733609ad67d4001f48292a.png"
+$outPath    = Join-Path $scriptPath "profile_card.png"
+$readmePath = Join-Path $scriptPath "README.md"
 $W = 900; $H = 520
 
 $src = [System.Drawing.Image]::FromFile($srcPath)
@@ -35,7 +37,6 @@ $fTiny = New-Object System.Drawing.Font("Segoe UI",  8)
 $fGrd  = New-Object System.Drawing.Font("Segoe UI", 26, [System.Drawing.FontStyle]::Bold)
 $fNum  = New-Object System.Drawing.Font("Segoe UI", 22, [System.Drawing.FontStyle]::Bold)
 
-# centered StringFormat
 $sfC = New-Object System.Drawing.StringFormat
 $sfC.Alignment     = [System.Drawing.StringAlignment]::Center
 $sfC.LineAlignment = [System.Drawing.StringAlignment]::Center
@@ -44,17 +45,35 @@ $sfC.LineAlignment = [System.Drawing.StringAlignment]::Center
 $g.DrawString("Cedrick250 / README.md", $fSm, $cGrey, 24, 12)
 $g.DrawLine($pBorder, 20, 34, $W-20, 34)
 
-# ===== BIO =======================================================
-$g.DrawString("Hi, I'm @Cedrick250  -  Cedric MUNEZERO", $fBig, $cBlue, 24, 42)
-$bio = @(
-    "Passionate about cybersecurity, IT operations & digital transformation",
-    "Hands-on: tech support, threat detection, system maintenance & cloud computing",
-    "Exploring Docker & Kubernetes | Currently learning Golang",
-    "Open to: ethical IT solutions, secure infrastructure & technical innovation"
-)
-$bioColors = @($cWhite, $cWhite, $cGreen, $cWhite)
-for ($i = 0; $i -lt $bio.Count; $i++) {
-    $g.DrawString($bio[$i], $fSm, $bioColors[$i], 28, 72 + $i*20)
+# ===== BIO SECTION DYNAMICALLY PARSED FROM README ================
+$bioLines = @("Hi, I'm @Cedric - Cedric MUNEZERO") # Fallback
+$bioColors = @($cBlue, $cWhite, $cWhite, $cGreen, $cWhite)
+
+if (Test-Path $readmePath) {
+    $content = Get-Content -Path $readmePath -Raw
+    if ($content -match "(?s)<!-- BIO_START -->(.*?)<!-- BIO_END -->") {
+        $rawBio = $matches[1]
+        $lines = $rawBio -split "`n" | Where-Object { $_.Trim() -ne "" -and $_ -notmatch "^---" }
+        $parsedLines = @()
+        foreach ($l in $lines) {
+            $cl = $l -replace '\*\*', ''
+            $cl = $cl -replace '&nbsp;', ''
+            # Very basic strip of emojis if they don't render, but Segoe UI has some fallback. Let's keep them and rely on fallback.
+            $parsedLines += $cl.Trim()
+        }
+        if ($parsedLines.Count -gt 0) {
+            $bioLines = $parsedLines
+        }
+    }
+}
+
+# Draw BIO
+$yBio = 46
+for ($i = 0; $i -lt $bioLines.Count; $i++) {
+    $col = if ($i -lt $bioColors.Count) { $bioColors[$i] } else { $cWhite }
+    $fnt = if ($i -eq 0) { $fBig } else { $fSm }
+    $g.DrawString($bioLines[$i], $fnt, $col, 28, $yBio)
+    $yBio += if ($i -eq 0) { 32 } else { 22 }
 }
 
 $g.DrawLine($pBorder, 20, 162, $W-20, 162)
@@ -62,9 +81,9 @@ $g.DrawLine($pBorder, 20, 162, $W-20, 162)
 # ===== STATS SECTION HEADER ======================================
 $g.DrawString("cedrick's GitHub Stats", $fMedB, $cWhite, 24, 170)
 
-# ===== LEFT: stat list ===========================================
+# ===== LEFT: STATS FROM FIRST PICTURE (xaitax) ===================
 $statLabels = @("Total Stars Earned:", "Total Commits (last year):", "Total PRs:", "Total Issues:", "Contributed to (last year):")
-$statVals   = @("1", "46", "1", "0", "0")
+$statVals   = @("6.7k", "474", "29", "9", "5")
 $statColors = @($cGold, $cBlue, $cPurple, $cGold, $cGreen)
 for ($i = 0; $i -lt 5; $i++) {
     $yy = 194 + $i*24
@@ -72,23 +91,23 @@ for ($i = 0; $i -lt 5; $i++) {
     $g.DrawString($statVals[$i],   $fSmB, $statColors[$i], 238, $yy)
 }
 
-# ===== CENTER: grade circle ======================================
+# ===== CENTER: grade circle (A-) =================================
 $cx = 430; $cy = 225; $r = 48
 $penGrade = New-Object System.Drawing.Pen([System.Drawing.Color]::FromArgb(255, 88,166,255), 5)
 $g.DrawEllipse($penGrade, $cx-$r, $cy-$r, $r*2, $r*2)
 $gradeRect = New-Object System.Drawing.RectangleF(($cx-$r), ($cy-$r), ($r*2), ($r*2))
 $g.DrawString("A-", $fGrd, $cBlue, $gradeRect, $sfC)
 
-# ===== RIGHT: language bars ======================================
+# ===== RIGHT: language bars FROM FIRST PICTURE ===================
 $g.DrawString("Most Used Languages", $fMedB, $cWhite, 530, 170)
-$langs     = @("Jupyter Notebook", "Go", "HTML", "Shell", "Python")
-$pcts      = @(39.63, 2.84, 0.12, 0.06, 0.01)
+$langs     = @("Python", "C", "HTML", "C++", "JavaScript")
+$pcts      = @(50.0, 21.4, 14.3, 7.1, 7.1)
 $lColRaw   = @(
-    [System.Drawing.Color]::FromArgb(255,218,123, 26),
-    [System.Drawing.Color]::FromArgb(255,  0,173,216),
-    [System.Drawing.Color]::FromArgb(255,227, 76, 38),
-    [System.Drawing.Color]::FromArgb(255,137,224,158),
-    [System.Drawing.Color]::FromArgb(255, 53,114,165)
+    [System.Drawing.Color]::FromArgb(255, 53,114,165), # Python
+    [System.Drawing.Color]::FromArgb(255, 85, 85, 85), # C
+    [System.Drawing.Color]::FromArgb(255,227, 76, 38), # HTML
+    [System.Drawing.Color]::FromArgb(255,243, 75,125), # C++
+    [System.Drawing.Color]::FromArgb(255,241,224, 90)  # JS
 )
 $barW = 270
 $bgBar = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(80, 48, 54, 61))
@@ -96,7 +115,7 @@ for ($i = 0; $i -lt 5; $i++) {
     $yy = 194 + $i*26
     $g.DrawString($langs[$i], $fTiny, $cGrey, 530, $yy)
     $g.FillRectangle($bgBar, 530, ($yy+14), $barW, 7)
-    $filled = [int]([math]::Max(2, ($pcts[$i] / 40.0 * $barW)))
+    $filled = [int]([math]::Max(2, ($pcts[$i] / 50.0 * $barW))) # scaled relative to max 50%
     $fgBar  = New-Object System.Drawing.SolidBrush($lColRaw[$i])
     $g.FillRectangle($fgBar, 530, ($yy+14), $filled, 7)
     $g.DrawString("$($pcts[$i])%", $fTiny, $cGrey, (530+$barW+4), ($yy+12))
@@ -106,9 +125,9 @@ $g.DrawLine($pBorder, 20, 328, $W-20, 328)
 
 # ===== CONTRIBUTION BOXES ========================================
 $boxes = @(
-    @{label="Total Contributions"; val="56";  sub="Aug 22, 2018 - Present"; col=$cBlue},
-    @{label="Week Streak";          val="1";   sub="Mar 15";                 col=$cGold},
-    @{label="Longest Week Streak";  val="1";   sub="Aug 19, 2018";          col=$cPurple}
+    @{label="Total Contributions"; val="474"; sub="githubstats.com"; col=$cBlue},
+    @{label="Current Streak";       val="1";   sub="day";            col=$cGold},
+    @{label="Longest Streak";       val="11";  sub="days";           col=$cPurple}
 )
 $boxW = [int](($W - 60) / 3)
 $boxH = 90
@@ -126,7 +145,7 @@ for ($i = 0; $i -lt 3; $i++) {
     # label
     $lblRect = New-Object System.Drawing.RectangleF($bx, ($boxY+52), $boxW, 20)
     $g.DrawString($boxes[$i].label, $fTiny, $cGrey, $lblRect, $sfC)
-    # sub date
+    # sub text
     $subRect = New-Object System.Drawing.RectangleF($bx, ($boxY+68), $boxW, 18)
     $g.DrawString($boxes[$i].sub,   $fTiny, $cGrey, $subRect, $sfC)
 }
@@ -134,18 +153,18 @@ for ($i = 0; $i -lt 3; $i++) {
 # ===== DIVIDER + FOOTER ==========================================
 $g.DrawLine($pBorder, 20, 434, $W-20, 434)
 
-# mini contribution dots (decorative)
+# mini contribution dots (decorative heatmap)
 $dotBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(80, 86,211,100))
 $dotBrush2= New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(160, 86,211,100))
-$rnd = New-Object System.Random(42)
+$rnd = New-Object System.Random(88) # Fixed seed to keep pattern consistent
 for ($col2 = 0; $col2 -lt 52; $col2++) {
     for ($row2 = 0; $row2 -lt 5; $row2++) {
         $dx = 24 + $col2*16
         $dy = 444 + $row2*12
         if ($dx -gt $W-30) { break }
-        $v = $rnd.Next(0,4)
-        if ($v -eq 0) { $g.FillRectangle($dotBrush, $dx, $dy, 11, 10) }
-        elseif ($v -ge 2) { $g.FillRectangle($dotBrush2, $dx, $dy, 11, 10) }
+        $v = $rnd.Next(0,5)
+        if ($v -eq 0 -or $v -eq 1) { $g.FillRectangle($dotBrush, $dx, $dy, 11, 10) }
+        elseif ($v -eq 2) { $g.FillRectangle($dotBrush2, $dx, $dy, 11, 10) }
         else {
             $lgtBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(30, 48, 54, 61))
             $g.FillRectangle($lgtBrush, $dx, $dy, 11, 10)
@@ -153,11 +172,11 @@ for ($col2 = 0; $col2 -lt 52; $col2++) {
     }
 }
 
-$g.DrawString("56 contributions in the last year  |  github.com/Cedrick250", $fTiny, $cGrey, 24, 508)
+$g.DrawString("474 contributions in the last year  |  github.com/Cedrick250", $fTiny, $cGrey, 24, 508)
 
 # ===== SAVE ======================================================
 $g.Dispose()
 $src.Dispose()
 $bmp.Save($outPath, [System.Drawing.Imaging.ImageFormat]::Png)
 $bmp.Dispose()
-Write-Host "Card saved: $outPath"
+Write-Host "Card saved to: $outPath"
