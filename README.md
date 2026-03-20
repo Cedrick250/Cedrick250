@@ -10,6 +10,7 @@
 
 ---
 
+<!-- BIO_START -->
 **👋 Hi, I'm @Cedric — Cédric MUNEZERO**
 
 🌸 I'm passionate about **cybersecurity**, **IT operations**, and **digital transformation**
@@ -19,6 +20,7 @@
 🌱 Currently exploring platform deployment tools like **Docker & Kubernetes**, and currently learning **Golang**
 
 💛 I'm open to collaborating on projects focused on **ethical IT solutions**, **secure infrastructure**, and **technical innovation**
+<!-- BIO_END -->
 
 📫 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/cedric-munezero)
 [![Gmail](https://img.shields.io/badge/Gmail-D14836?style=flat&logo=gmail&logoColor=white)](mailto:munezero@email.com)
