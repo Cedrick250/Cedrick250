@@ -3,7 +3,7 @@
 ═══════════════════════════════════════ -->
 
 <div align="center">
-  <img src="./69733609ad67d4001f48292a.png" width="100%" alt="banner" />
+  <img src="./profile_card.png" width="100%" alt="Cedrick250 GitHub Profile Card" />
 </div>
 
 <div align="center">
