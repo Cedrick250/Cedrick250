@@ -11,15 +11,18 @@
 ---
 
 <!-- BIO_START -->
-**👋 Hi,test2 I'm @Cedric — Cédric MUNEZERO**
+**👋 Hi, I'm Cedric**
 
-🌸 I'm passionate about **cybersecurity**, **IT operations**, and **digital transformation**
+🔐 I'm deeply into **DevOps and SecOps**, **IT operations***, and **infrastructure resilience**  
 
-🔧 I've gained hands-on experience through internships in **tech support**, **threat detection**, **system maintenance**, **cloud computing**
+⚡ I thrive in **tech support**, **workflow automation**, **system administration**, and **cybersecurity**, **networking**  
 
-🌱 Currently exploring platform deployment tools like **Docker & Kubernetes**, and currently learning **Golang**
+☁️ Always exploring several tools & technologies + using scripts with **Golang**  
 
-💛 I'm open to collaborating on projects focused on **ethical IT solutions**, **secure infrastructure**, and **technical innovation**
+🌱 Passionate about IoT, **machine learning**, and **cloud computing innovations**  
+
+💜 Open to collaborating on projects focused on ethical **IT solutions**, **secure infrastructure**, and **technical innovation**
+
 <!-- BIO_END -->
 
 📫 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/cedric-munezero)
