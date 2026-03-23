@@ -11,7 +11,7 @@
 ---
 
 <!-- BIO_START -->
-**👋 Hi, I'm Cedric**
+**👋 Hitest, I'm Cedric**
 
 🔐 I'm deeply into **DevOps and SecOps**, **IT operations**, and **infrastructure resilience**  
 
