@@ -2,7 +2,7 @@ name: Generate Profile Card
 on:
   push:
     paths:
-      - 'README.md'
+      - "README.md"
     branches:
       - main
 
@@ -12,10 +12,10 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-        
+
       - name: Generate Card (PowerShell)
         run: .\make_card.ps1
-        
+
       - name: Commit and Push
         run: |
           git config --global user.name "github-actions[bot]"
