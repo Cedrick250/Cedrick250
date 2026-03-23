@@ -29,13 +29,13 @@ $cGrey   = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb
 $pBorder = New-Object System.Drawing.Pen([System.Drawing.Color]::FromArgb(120, 48, 54, 61), 1)
 
 # --- fonts ---
-$fBig  = New-Object System.Drawing.Font("Segoe UI", 16, [System.Drawing.FontStyle]::Bold)
-$fMedB = New-Object System.Drawing.Font("Segoe UI", 12, [System.Drawing.FontStyle]::Bold)
-$fSm   = New-Object System.Drawing.Font("Segoe UI", 10)
-$fSmB  = New-Object System.Drawing.Font("Segoe UI", 10, [System.Drawing.FontStyle]::Bold)
-$fTiny = New-Object System.Drawing.Font("Segoe UI",  8)
-$fGrd  = New-Object System.Drawing.Font("Segoe UI", 26, [System.Drawing.FontStyle]::Bold)
-$fNum  = New-Object System.Drawing.Font("Segoe UI", 22, [System.Drawing.FontStyle]::Bold)
+$fBig  = New-Object System.Drawing.Font("Segoe UI Emoji", 16, [System.Drawing.FontStyle]::Bold)
+$fMedB = New-Object System.Drawing.Font("Segoe UI Emoji", 12, [System.Drawing.FontStyle]::Bold)
+$fSm   = New-Object System.Drawing.Font("Segoe UI Emoji", 10)
+$fSmB  = New-Object System.Drawing.Font("Segoe UI Emoji", 10, [System.Drawing.FontStyle]::Bold)
+$fTiny = New-Object System.Drawing.Font("Segoe UI Emoji",  8)
+$fGrd  = New-Object System.Drawing.Font("Segoe UI Emoji", 26, [System.Drawing.FontStyle]::Bold)
+$fNum  = New-Object System.Drawing.Font("Segoe UI Emoji", 22, [System.Drawing.FontStyle]::Bold)
 
 $sfC = New-Object System.Drawing.StringFormat
 $sfC.Alignment     = [System.Drawing.StringAlignment]::Center
@@ -50,7 +50,7 @@ $bioLines = @("Hi, I'm @Cedric - Cedric MUNEZERO") # Fallback
 $bioColors = @($cBlue, $cWhite, $cWhite, $cGreen, $cWhite)
 
 if (Test-Path $readmePath) {
-    $content = Get-Content -Path $readmePath -Raw
+    $content = Get-Content -Path $readmePath -Encoding UTF8 -Raw
     if ($content -match "(?s)<!-- BIO_START -->(.*?)<!-- BIO_END -->") {
         $rawBio = $matches[1]
         $lines = $rawBio -split "`n" | Where-Object { $_.Trim() -ne "" -and $_ -notmatch "^---" }
