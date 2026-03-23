@@ -68,12 +68,12 @@ if (Test-Path $readmePath) {
 }
 
 # Draw BIO
-$yBio = 46
+$yBio = 40
 for ($i = 0; $i -lt $bioLines.Count; $i++) {
     $col = if ($i -lt $bioColors.Count) { $bioColors[$i] } else { $cWhite }
     $fnt = if ($i -eq 0) { $fBig } else { $fSm }
     $g.DrawString($bioLines[$i], $fnt, $col, 28, $yBio)
-    $yBio += if ($i -eq 0) { 32 } else { 22 }
+    $yBio += if ($i -eq 0) { 26 } else { 19 }
 }
 
 $g.DrawLine($pBorder, 20, 162, $W-20, 162)
