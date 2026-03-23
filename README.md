@@ -11,7 +11,7 @@
 ---
 
 <!-- BIO_START -->
-**👋 Hi, I'm @Cedric — Cédric MUNEZERO**
+**👋 Hi,test I'm @Cedric — Cédric MUNEZERO**
 
 🌸 I'm passionate about **cybersecurity**, **IT operations**, and **digital transformation**
 
