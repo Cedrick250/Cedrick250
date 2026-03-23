@@ -1,0 +1,25 @@
+name: Generate Profile Card
+on:
+  push:
+    paths:
+      - 'README.md'
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        
+      - name: Generate Card (PowerShell)
+        run: .\make_card.ps1
+        
+      - name: Commit and Push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add profile_card.png
+          git commit -m "Auto-update profile card from README" || echo "No changes to commit"
+          git push
