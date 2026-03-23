@@ -170,8 +170,13 @@ for ($i = 0; $i -lt $bioLines.Count; $i++) {
     $yBio += if ($i -eq 0) { 26 } else { 19 }
 }
 
+<<<<<<< HEAD
 $div1Y = 162 + $bioOffset
 $g.DrawLine($pBorder, 20, $div1Y, $W-20, $div1Y)
+=======
+
+$g.DrawLine($pBorder, 20, 162, $W-20, 162)
+>>>>>>> 1e576ee957dda89f0f4ee40a98fef735dd845c2f
 
 # ===== STATS SECTION HEADER ======================================
 $statsY = 170 + $bioOffset
