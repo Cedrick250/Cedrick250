@@ -76,6 +76,7 @@ for ($i = 0; $i -lt $bioLines.Count; $i++) {
     $yBio += if ($i -eq 0) { 26 } else { 19 }
 }
 
+
 $g.DrawLine($pBorder, 20, 162, $W-20, 162)
 
 # ===== STATS SECTION HEADER ======================================
