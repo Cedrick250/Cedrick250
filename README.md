@@ -13,7 +13,7 @@
 <!-- BIO_START -->
 **👋 Hi, I'm Cedric**
 
-🔐 I'm deeply into **DevOps and SecOps**, **IT operations***, and **infrastructure resilience**  
+🔐 I'm deeply into **DevOps and SecOps**, **IT operations**, and **infrastructure resilience**  
 
 ⚡ I thrive in **tech support**, **workflow automation**, **system administration**, and **cybersecurity**, **networking**  
 
@@ -22,7 +22,6 @@
 🌱 Passionate about IoT, **machine learning**, and **cloud computing innovations**  
 
 💜 Open to collaborating on projects focused on ethical **IT solutions**, **secure infrastructure**, and **technical innovation**
-
 <!-- BIO_END -->
 
 📫 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/cedric-munezero)
