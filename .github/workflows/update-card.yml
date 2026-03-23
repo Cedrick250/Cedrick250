@@ -22,4 +22,5 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add profile_card.png
           git commit -m "Auto-update profile card from README" || echo "No changes to commit"
+          git pull --rebase origin main
           git push
